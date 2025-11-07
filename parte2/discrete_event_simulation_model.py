@@ -263,17 +263,8 @@ ax1.set_xticks(x)
 ax1.set_xticklabels(estaciones, rotation=45)
 ax1.legend()
 
-# 2. Distribución de tiempo total
-ax2 = axes[0, 1]
-ax2.hist(df['Tiempo total (seg)'], bins=15, alpha=0.7, label='Datos Reales', color='steelblue', density=True)
-ax2.hist(df_sim['Tiempo total (seg)'], bins=15, alpha=0.7, label='Simulación', color='orange', density=True)
-ax2.set_xlabel('Tiempo Total (seg)')
-ax2.set_ylabel('Densidad')
-ax2.set_title('Distribución de Tiempo Total')
-ax2.legend()
-
-# 3. Box plot comparativo por estación
-ax3 = axes[0, 2]
+# 2. Box plot comparativo por estación
+ax3 = axes[0, 1]
 data_real = [df[col + ' (seg)'].values for col in time_columns]
 data_sim = [df_sim[col + ' (seg)'].values for col in time_columns]
 
@@ -285,15 +276,14 @@ bp1 = ax3.boxplot(data_real, positions=positions_real, widths=0.3, patch_artist=
 bp2 = ax3.boxplot(data_sim, positions=positions_sim, widths=0.3, patch_artist=True,
                   boxprops=dict(facecolor='orange', alpha=0.7))
 
-ax3.set_xlabel('Estación')
 ax3.set_ylabel('Tiempo (seg)')
 ax3.set_title('Variabilidad por Estación')
 ax3.set_xticks(range(len(estaciones)))
 ax3.set_xticklabels(estaciones, rotation=45)
 ax3.legend([bp1["boxes"][0], bp2["boxes"][0]], ['Datos Reales', 'Simulación'])
 
-# 4. Scatter plot: Real vs Simulado
-ax4 = axes[1, 0]
+# 3. Scatter plot: Real vs Simulado
+ax4 = axes[0, 2]
 # Comparar tiempos totales ordenados
 real_sorted = sorted(df['Tiempo total (seg)'].values)
 sim_sorted = sorted(df_sim['Tiempo total (seg)'].values[:len(real_sorted)])
@@ -308,8 +298,8 @@ ax4.set_title('Correlación Real vs Simulado')
 ax4.legend()
 ax4.grid(True, alpha=0.3)
 
-# 5. Distribución de cantidad de panes
-ax5 = axes[1, 1]
+# 4. Distribución de cantidad de panes
+ax5 = axes[1, 0]
 cantidad_real = df['Cantidad de panes'].value_counts().sort_index()
 cantidad_sim = df_sim['Cantidad de panes'].value_counts().sort_index()
 
@@ -324,8 +314,8 @@ ax5.set_xticks(x)
 ax5.set_xticklabels(cantidad_real.index)
 ax5.legend()
 
-# 6. Serie temporal de órdenes completadas
-ax6 = axes[1, 2]
+# 5. Serie temporal de órdenes completadas
+ax6 = axes[1, 1]
 tiempo_real = np.arange(len(df)) * (7200/len(df)) / 60  # Convertir a minutos
 tiempo_sim = np.array(subway_sim.tiempos_salida[:len(df_sim)]) / 60  # Convertir a minutos
 
@@ -336,6 +326,9 @@ ax6.set_ylabel('Órdenes Completadas')
 ax6.set_title('Throughput en el Tiempo')
 ax6.legend()
 ax6.grid(True, alpha=0.3)
+
+axNone = axes[1, 2]
+axNone.axis('off')
 
 plt.tight_layout()
 plt.savefig('discrete_event_simulation_model_charts.png', dpi=300, bbox_inches='tight')

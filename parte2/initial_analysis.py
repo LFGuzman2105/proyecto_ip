@@ -159,18 +159,8 @@ for i, (bar, tiempo) in enumerate(zip(bars, tiempos)):
     ax1.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2, 
              seconds_to_time(int(tiempo)), ha='center', fontsize=9)
 
-# 2. Distribución de tiempo total
-ax2 = axes[0, 1]
-ax2.hist(df['Tiempo total (seg)'], bins=10, color='coral', alpha=0.7, edgecolor='black')
-ax2.axvline(df['Tiempo total (seg)'].mean(), color='red', linestyle='--', 
-            linewidth=2, label='Media')
-ax2.set_xlabel('Tiempo Total (segundos)')
-ax2.set_ylabel('Frecuencia')
-ax2.set_title('Distribución de Tiempo Total')
-ax2.legend()
-
-# 3. Box plot de tiempos por estación
-ax3 = axes[0, 2]
+# 2. Box plot de tiempos por estación
+ax3 = axes[0, 1]
 data_boxplot = [df[col + ' (seg)'].values for col in time_columns]
 bp = ax3.boxplot(data_boxplot, labels=estaciones, patch_artist=True)
 for patch in bp['boxes']:
@@ -180,8 +170,8 @@ ax3.set_ylabel('Tiempo (segundos)')
 ax3.set_title('Variabilidad por Estación')
 ax3.tick_params(axis='x', rotation=45)
 
-# 4. Tiempo total vs cantidad de panes
-ax4 = axes[1, 0]
+# 3. Tiempo total vs cantidad de panes
+ax4 = axes[0, 2]
 for cantidad in sorted(df['Cantidad de panes'].unique()):
     subset = df[df['Cantidad de panes'] == cantidad]
     ax4.scatter(subset.index, subset['Tiempo total (seg)'], 
@@ -192,8 +182,8 @@ ax4.set_title('Tiempo Total por Orden')
 ax4.legend()
 ax4.grid(True, alpha=0.3)
 
-# 5. Coeficiente de variación
-ax5 = axes[1, 1]
+# 4. Coeficiente de variación
+ax5 = axes[1, 0]
 cv_values = [cv_dict[col] for col in time_columns]
 bars = ax5.bar(estaciones, cv_values, color='orange', alpha=0.7)
 ax5.axhline(20, color='green', linestyle='--', label='Límite estable (20%)')
@@ -203,12 +193,15 @@ ax5.set_title('Variabilidad del Proceso (CV%)')
 ax5.tick_params(axis='x', rotation=45)
 ax5.legend()
 
-# 6. Contribución porcentual al tiempo total
-ax6 = axes[1, 2]
+# 5. Contribución porcentual al tiempo total
+ax6 = axes[1, 1]
 contribuciones = [(tiempo / sum(tiempos)) * 100 for tiempo in tiempos]
 wedges, texts, autotexts = ax6.pie(contribuciones, labels=estaciones, autopct='%1.1f%%',
                                      startangle=90, colors=sns.color_palette("Set3"))
 ax6.set_title('Contribución al Tiempo Total')
+
+axNone = axes[1, 2]
+axNone.axis('off')
 
 plt.tight_layout()
 plt.savefig('initial_analysis_charts.png', dpi=300, bbox_inches='tight')
