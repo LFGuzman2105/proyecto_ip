@@ -14,7 +14,7 @@ for df in [df1, df2, df3]:
     df['Fecha'] = pd.to_datetime(df['Fecha'], format='%d/%m/%Y')
 
 # Agregar identificador de método
-df1['Método'] = 'Normal (Baseline)'
+df1['Método'] = 'Baseline'
 df2['Método'] = 'Método 2'
 df3['Método'] = 'Método 3'
 
@@ -23,7 +23,7 @@ print("ANÁLISIS COMPARATIVO: IMPACTO DE MÉTODOS EN VELOCIDAD DE LECTURA")
 print("="*80)
 
 print("\n📊 RESUMEN DE DATOS:")
-print(f"  • Método 1 (Baseline):     {len(df1)} mediciones ({df1['Fecha'].min().strftime('%d/%m/%Y')} - {df1['Fecha'].max().strftime('%d/%m/%Y')})")
+print(f"  • Baseline:     {len(df1)} mediciones ({df1['Fecha'].min().strftime('%d/%m/%Y')} - {df1['Fecha'].max().strftime('%d/%m/%Y')})")
 print(f"  • Método 2:   {len(df2)} mediciones ({df2['Fecha'].min().strftime('%d/%m/%Y')} - {df2['Fecha'].max().strftime('%d/%m/%Y')})")
 print(f"  • Método 3:       {len(df3)} mediciones ({df3['Fecha'].min().strftime('%d/%m/%Y')} - {df3['Fecha'].max().strftime('%d/%m/%Y')})")
 
@@ -203,7 +203,7 @@ print(f"""
 💡 RECOMENDACIONES:
   • Utilizar el método "{mejor_metodo_general}" para máxima velocidad
   • {'Evitar' if metodos_stats.loc['Método 2', 'Promedio_Ambos'] < metodos_stats.loc['Baseline', 'Promedio_Ambos'] else 'Considerar'} música durante la lectura
-  • El ambiente controlado y lectura en voz alta {'son beneficiosos' if metodos_stats.loc['Método 3', 'Promedio_Ambos'] > metodos_stats.loc['Baseline', 'Promedio_Ambos'] else 'no mostraron mejoras significativas'}
+  • El ambiente controlado y lectura en voz alta, emplear técnicas para evitar redundancia y subvocalización {'son beneficiosos' if metodos_stats.loc['Método 3', 'Promedio_Ambos'] > metodos_stats.loc['Baseline', 'Promedio_Ambos'] else 'no mostraron mejoras significativas'}
 """)
 
 print("="*80)

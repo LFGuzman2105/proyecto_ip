@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-# Cargar los datos del tercer dataset (escritorio, aislados, computadora, voz alta)
+# Cargar los datos del tercer dataset
 df = pd.read_csv('datos3.csv')
 
 # Limpiar espacios en blanco
@@ -14,12 +14,13 @@ df['Lectura'] = df['Lectura'].str.strip()
 df['Fecha'] = pd.to_datetime(df['Fecha'], format='%d/%m/%Y')
 
 print("="*70)
-print("ANÁLISIS DE VELOCIDAD DE LECTURA - MÉTODO ÓPTIMO")
+print("ANÁLISIS DE VELOCIDAD DE LECTURA - MÉTODO 3")
 print("="*70)
 print(f"\nPeríodo de medición: {df['Fecha'].min().strftime('%d/%m/%Y')} - {df['Fecha'].max().strftime('%d/%m/%Y')}")
 print(f"Total de mediciones: {len(df)*2} ({len(df)} por persona)")
 print(f"Número de lecturas diferentes: {df['Lectura'].nunique()}")
-print("\n📍 Condiciones: Escritorio, aislados, leyendo en computadora y voz alta")
+print("\n📍 Nota: Estas mediciones se hicieron aislados y sentados en un escritorio")
+print("\n📍 Se aplicaron técnicas como reducir la Subvocalización y la regresión")
 
 # ==========================================
 # ESTADÍSTICAS GENERALES POR PERSONA
@@ -172,10 +173,7 @@ Lectura más lenta para ambos:
 Tendencia durante la semana:
   • {'Ambos lectores mejoraron en la segunda mitad de la semana' if segunda_parte_luis > primera_parte_luis and segunda_parte_byron > primera_parte_byron else 'El rendimiento varió durante la semana'}
 
-Observación:
-  • Método óptimo: escritorio, ambiente aislado, lectura en computadora
-    y en voz alta. Este método puede mostrar mejoras significativas en
-    la velocidad de lectura comparado con otros métodos.
+
 """)
 
 print("="*70)
@@ -262,7 +260,7 @@ else:
 print("\nGenerando gráficos de control...")
 
 fig, axes = plt.subplots(2, 2, figsize=(16, 10))
-fig.suptitle('Gráficos de Control de Shewhart - Método Óptimo', fontsize=16, fontweight='bold')
+fig.suptitle('Gráficos de Control de Shewhart - Método 3', fontsize=16, fontweight='bold')
 
 # X-bar chart para Luis
 ax1 = axes[0, 0]
@@ -344,8 +342,7 @@ ax4.set_xticks(x_pos)
 ax4.set_xticklabels([f'{i+1}' for i in x_pos])
 
 plt.tight_layout()
-plt.savefig('method3_shewhart_charts.png', dpi=300, bbox_inches='tight')
-print("✅ Gráficos guardados como 'method3_shewhart_charts.png'")
+plt.savefig('method_3_shewhart_charts.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 print("\n" + "="*70)

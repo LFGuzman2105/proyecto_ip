@@ -311,7 +311,6 @@ ax4.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.savefig('shewhart_control_charts.png', dpi=300, bbox_inches='tight')
 plt.show()
-print("\n✅ Gráficos guardados como 'shewhart_control_charts.png'")
 
 # ==========================================
 # EVALUACIÓN DE CAUSAS ESPECIALES

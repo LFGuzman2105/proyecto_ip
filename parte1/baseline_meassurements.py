@@ -338,7 +338,6 @@ ax4.set_xticklabels([f'{i+1}' for i in x_pos])
 
 plt.tight_layout()
 plt.savefig('baseline_shewhart_charts.png', dpi=300, bbox_inches='tight')
-print("✅ Gráficos guardados como 'baseline_shewhart_charts.png'")
 plt.show()
 
 print("\n" + "="*70)

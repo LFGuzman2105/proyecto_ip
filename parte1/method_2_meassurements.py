@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-# Cargar los datos del segundo dataset (con música)
+# Cargar los datos del segundo dataset
 df = pd.read_csv('datos2.csv')
 
 # Limpiar espacios en blanco
@@ -14,7 +14,7 @@ df['Lectura'] = df['Lectura'].str.strip()
 df['Fecha'] = pd.to_datetime(df['Fecha'], format='%d/%m/%Y')
 
 print("="*70)
-print("ANÁLISIS DE VELOCIDAD DE LECTURA - MÉTODO CON MÚSICA")
+print("ANÁLISIS DE VELOCIDAD DE LECTURA - MÉTODO 2")
 print("="*70)
 print(f"\nPeríodo de medición: {df['Fecha'].min().strftime('%d/%m/%Y')} - {df['Fecha'].max().strftime('%d/%m/%Y')}")
 print(f"Total de mediciones: {len(df)*2} ({len(df)} por persona)")
@@ -155,7 +155,7 @@ print(f"  {peor_byron['Palabras por Minuto (Byron)']} ppm - {peor_byron['Lectura
 # RESUMEN EJECUTIVO
 # ==========================================
 print("\n" + "="*70)
-print("7. RESUMEN EJECUTIVO - MÉTODO CON MÚSICA")
+print("7. RESUMEN EJECUTIVO - MÉTODO 2")
 print("="*70)
 
 print(f"""
@@ -261,7 +261,7 @@ else:
 print("\nGenerando gráficos de control...")
 
 fig, axes = plt.subplots(2, 2, figsize=(16, 10))
-fig.suptitle('Gráficos de Control de Shewhart - Método con Música', fontsize=16, fontweight='bold')
+fig.suptitle('Gráficos de Control de Shewhart - Método 2', fontsize=16, fontweight='bold')
 
 # X-bar chart para Luis
 ax1 = axes[0, 0]
@@ -343,8 +343,7 @@ ax4.set_xticks(x_pos)
 ax4.set_xticklabels([f'{i+1}' for i in x_pos])
 
 plt.tight_layout()
-plt.savefig('method2_shewhart_charts.png', dpi=300, bbox_inches='tight')
-print("✅ Gráficos guardados como 'method2_shewhart_charts.png'")
+plt.savefig('method_2_shewhart_charts.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 print("\n" + "="*70)
